@@ -1,4 +1,4 @@
-package pspcontroller;
+package com.chardin.pspcontroller;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -7,7 +7,9 @@ import java.util.Arrays;
 
 public class Controles {
 
-	//final int PROTOCOL_INDEX = 0;
+	private char keyState[];
+	private Robot robot;
+
 	final int UP_INDEX = 1;
 	final int DOWN_INDEX = 2;
 	final int LEFT_INDEX = 3;
@@ -24,26 +26,23 @@ public class Controles {
 	final int RANALOG_INDEX = 14;
 	final int LANALOG_INDEX = 15;
 	final int SELECT_INDEX = 16;
-	
-	private char keyState[];
-	private Robot robot;
-	
+
 	public Controles() throws AWTException {
-		
+
 		robot = new Robot();
-		
+
 		keyState = new char[17];
 		Arrays.fill(keyState, '0');
 	}
-	
+
 	public void simularKeys(char[] keys) {
-		
+
 		if(keys.length != 17) {
-			
+
 			System.out.println("Error, key no reconocida.");
 			return;
 		}
-		
+
 		/*int[][] keysRelationals = {
 				{UP_INDEX, KeyEvent.VK_UP},
 				{DOWN_INDEX, KeyEvent.VK_DOWN},
@@ -62,11 +61,10 @@ public class Controles {
 				{SELECT_INDEX, KeyEvent.VK_SPACE},
 				{START_INDEX, KeyEvent.VK_ENTER}
 		};
-		
+
 		for (int i = 0; i < keysRelationals.length; i++)
 			simularKey(keys, keysRelationals[i][0], keysRelationals[i][1]);*/
-		
-		
+
 		simularKey(keys, UP_INDEX, KeyEvent.VK_UP);
 		simularKey(keys, DOWN_INDEX, KeyEvent.VK_DOWN);
 		simularKey(keys, LEFT_INDEX, KeyEvent.VK_LEFT);
@@ -83,9 +81,10 @@ public class Controles {
 		simularKey(keys, RANALOG_INDEX, KeyEvent.VK_D);
 		simularKey(keys, LANALOG_INDEX, KeyEvent.VK_A);
 		simularKey(keys, SELECT_INDEX, KeyEvent.VK_SPACE);
-	}	
+	}
+
 	private void simularKey(char[] keys , int KEY_INDEX, int KEY_CODE) {
-		
+
 		if(keys[KEY_INDEX] == '1') {
 			if(keyState[KEY_INDEX] == '0') {
 				robot.keyPress(KEY_CODE);
